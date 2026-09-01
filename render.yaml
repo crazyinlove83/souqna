@@ -1,0 +1,42 @@
+services:
+  - type: web
+    name: souqna-marketplace
+    runtime: docker
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: "3000"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: souqna-db
+          property: connectionString
+      - key: DATABASE_SSL
+        value: "false"
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: APP_URL
+        sync: false
+      - key: CORS_ORIGIN
+        sync: false
+      - key: DEFAULT_COMMISSION_RATE
+        value: "0.05"
+      - key: FAWATERK_BASE_URL
+        sync: false
+      - key: FAWATERK_TOKEN_URL
+        sync: false
+      - key: FAWATERK_CLIENT_ID
+        sync: false
+      - key: FAWATERK_CLIENT_SECRET
+        sync: false
+      - key: FAWATERK_API_KEY
+        sync: false
+      - key: FAWATERK_WEBHOOK_SECRET
+        sync: false
+databases:
+  - name: souqna-db
+    databaseName: souqna
+    user: souqna
